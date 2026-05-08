@@ -8,6 +8,7 @@ An IntelliJ IDEA plugin that formats and beautifies nginx configuration files.
 - Preserves full-line and inline `#` comments.
 - Keeps `#` characters inside quoted strings as normal text.
 - Adds a `Code | Format Nginx Config` action for the current editor.
+- Reuses the same shortcut as IntelliJ IDEA's `Code | Reformat Code` action. On macOS, press `Option+Command+L` in an nginx configuration file to run this formatter.
 
 ## Compatibility
 
@@ -56,7 +57,17 @@ Recommended for GitHub, CI, and contributors who want a reproducible build:
 ./gradlew buildPlugin
 ```
 
-The installable plugin zip is produced under `build/distributions/`.
+The installable plugin zip is produced under `build/distributions/` with this naming format:
+
+```text
+nginx-config-formatter-<pluginVersion>-<platformType>-<platformVersion>.zip
+```
+
+For the current settings, that is:
+
+```text
+build/distributions/nginx-config-formatter-0.0.1-IU-2026.1.1.zip
+```
 
 If Gradle 9.0+ is installed and available in `PATH`, you can also use the system Gradle command:
 
@@ -134,7 +145,7 @@ This script uses:
 It compiles against the jars from that installed IDEA app and produces:
 
 ```text
-dist/nginx-config-formatter-1.0.0-IU-2026.1.1.zip
+dist/nginx-config-formatter-0.0.1-IU-2026.1.1.zip
 ```
 
 This path is fast because it does not use Gradle, does not download IntelliJ Platform artifacts, and does not run plugin verification. It is useful for local smoke testing, but not ideal as the main GitHub/CI build.
@@ -181,3 +192,11 @@ The repository currently keeps this behavior as a documented option rather than 
 6. Restart IntelliJ IDEA when prompted.
 
 After installation, open an nginx config file and run `Code | Format Nginx Config`.
+
+You can also use the standard IntelliJ IDEA formatting shortcut:
+
+```text
+Option+Command+L
+```
+
+The plugin reuses IDEA's `Code | Reformat Code` shortcut and promotes the nginx formatter for nginx configuration files, so the same muscle memory works for normal code formatting and nginx config formatting.

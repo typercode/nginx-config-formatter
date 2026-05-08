@@ -7,16 +7,10 @@ import com.intellij.openapi.command.WriteCommandAction;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.vfs.VirtualFile;
 
 public class FormatNginxConfigAction extends AnAction {
     private final NginxFormatter formatter = new NginxFormatter();
-
-    @Override
-    public void update(AnActionEvent event) {
-        Project project = event.getProject();
-        Editor editor = event.getData(CommonDataKeys.EDITOR);
-        event.getPresentation().setEnabledAndVisible(project != null && editor != null);
-    }
 
     @Override
     public void actionPerformed(AnActionEvent event) {
@@ -37,6 +31,16 @@ public class FormatNginxConfigAction extends AnAction {
                 "Format Nginx Config",
                 null,
                 () -> document.setText(formatted)
+        );
+    }
+
+    @Override
+    public void update(AnActionEvent event) {
+        Project project = event.getProject();
+        Editor editor = event.getData(CommonDataKeys.EDITOR);
+        VirtualFile file = event.getData(CommonDataKeys.VIRTUAL_FILE);
+        event.getPresentation().setEnabledAndVisible(
+                project != null && editor != null && NginxConfigMatcher.looksLikeNginxConfig(file)
         );
     }
 }

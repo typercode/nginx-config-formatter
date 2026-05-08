@@ -69,5 +69,4 @@ class NginxFormatterTest {
 
         assertEquals(expected, formatter.format(source));
     }
-    }
 }

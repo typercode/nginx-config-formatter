@@ -1,4 +1,5 @@
 import org.jetbrains.intellij.platform.gradle.IntelliJPlatformType
+import org.jetbrains.intellij.platform.gradle.tasks.BuildPluginTask
 
 plugins {
     id("java")
@@ -44,6 +45,18 @@ intellijPlatform {
 }
 
 tasks {
+    named<BuildPluginTask>("buildPlugin") {
+        val pluginVersion = providers.gradleProperty("pluginVersion")
+        val platformType = providers.gradleProperty("platformType")
+        val platformVersion = providers.gradleProperty("platformVersion")
+
+        archiveFileName.set(
+            providers.provider {
+                "${project.name}-${pluginVersion.get()}-${platformType.get()}-${platformVersion.get()}.zip"
+            }
+        )
+    }
+
     test {
         useJUnitPlatform()
     }
