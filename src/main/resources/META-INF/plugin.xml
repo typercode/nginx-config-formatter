@@ -1,0 +1,22 @@
+<idea-plugin>
+    <id>com.typercode.nginx-config-formatter</id>
+    <name>Nginx Config Formatter</name>
+    <version>1.0.0</version>
+    <vendor email="local@example.com">TyperCode</vendor>
+    <idea-version since-build="261" until-build="261.*"/>
+
+    <description><![CDATA[
+        Formats and beautifies nginx configuration files, including files that contain # comments.
+    ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+
+    <actions>
+        <action id="NginxConfigFormatter.Format"
+                class="com.typercode.nginxfmt.FormatNginxConfigAction"
+                text="Format Nginx Config"
+                description="Format and beautify the current nginx configuration file">
+            <add-to-group group-id="CodeMenu" anchor="last"/>
+        </action>
+    </actions>
+</idea-plugin>
